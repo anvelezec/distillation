@@ -8,7 +8,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.optim import lr_scheduler
 
-from distilation.train_step import train_model
+from distillation.train_step import train_model
 
 
 data_transforms = {
