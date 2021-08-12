@@ -3,7 +3,7 @@ import copy
 import torch
 
 
-def train_model(student, teacher, criterion, optimizer, scheduler, device, dataloaders, num_epochs, dataset_sizes):
+def train_model(student, teacher, criterion, optimizer, scheduler, device, dataloaders, num_epochs, dataset_sizes, alpha):
             since = time.time()
 
             teacher.eval()
@@ -43,7 +43,7 @@ def train_model(student, teacher, criterion, optimizer, scheduler, device, datal
                             s_outputs = student(inputs)
                             _, preds = torch.max(s_outputs, 1)
                             _, preds_teacher = torch.max(t_outputs, 1)
-                            loss = criterion(s_outputs, t_outputs, labels)
+                            loss = criterion(s_outputs, t_outputs, labels, alpha)
 
                             # backward + optimize only if in training phase
                             if phase == 'train':

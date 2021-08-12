@@ -41,7 +41,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # Defines teacher and student
 if device.type == "cuda":
-    torch.load("models/resnet50_bees.pt")
+    teacher = torch.load("models/resnet50_bees.pt")
 else:
     teacher = torch.load("models/resnet50_bees.pt", map_location=torch.device('cpu'))
 student = models.resnet18(pretrained=True)
