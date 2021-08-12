@@ -11,6 +11,8 @@ def train_model(student, teacher, criterion, optimizer, scheduler, device, datal
             best_model_wts = copy.deepcopy(student.state_dict())
             best_acc = 0.0
 
+            epoch_loss_l, epoch_acc_l, epoch_acc_teacher_l, diff_t_s = [], [], [], []
+
             for epoch in range(num_epochs):
                 print('Epoch {}/{}'.format(epoch, num_epochs - 1))
                 print('-' * 10)
@@ -59,18 +61,24 @@ def train_model(student, teacher, criterion, optimizer, scheduler, device, datal
                     epoch_acc = running_corrects.double() / dataset_sizes[phase]
                     epoch_acc_teacher = running_corrects_teacher.double() / dataset_sizes[phase]
 
-                    print('{} Loss: {:.4f} Acc: {:.4f}'.format(
+                    print('{} Loss: {:.4f} Acc: {:.4f}, student'.format(
                         phase, epoch_loss, epoch_acc))
                     
-                    print('{} Loss: {:.4f} Acc: {:.4f}'.format(
-                        phase, epoch_loss, epoch_acc_teacher))
+                    print('{} Loss: {:.4f} Acc: {:.4f}, teacher'.format(
+                        phase, 0.0000, epoch_acc_teacher))
+                    
+                    _diff = torch.mean(torch.abs(t_outputs - s_outputs).reshape(-1))
+                    print('teacher-student diff = {}'.format(_diff))
 
                     # deep copy the model
                     if phase == 'val' and epoch_acc > best_acc:
                         best_acc = epoch_acc
                         best_model_wts = copy.deepcopy(student.state_dict())
 
-                print()
+                epoch_loss_l.append(epoch_loss)
+                epoch_acc_l.append(epoch_acc.item())
+                epoch_acc_teacher_l.append(epoch_acc_teacher.item())
+                diff_t_s.append(_diff.item())
 
             time_elapsed = time.time() - since
             print('Training complete in {:.0f}m {:.0f}s'.format(
@@ -79,4 +87,12 @@ def train_model(student, teacher, criterion, optimizer, scheduler, device, datal
 
             # load best model weights
             student.load_state_dict(best_model_wts)
-            return student
+
+            result = {
+                      "epoch_loss_l": epoch_loss_l,
+                      "epoch_acc_l": epoch_acc_l,
+                      "epoch_acc_teacher_l": epoch_acc_teacher_l,
+                      "diff_t_s": diff_t_s
+                      }
+
+            return student, result

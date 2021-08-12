@@ -9,7 +9,7 @@ import torch.optim as optim
 from torch.optim import lr_scheduler
 
 from distillation.train_step import train_model
-
+from loss.cross_entropy_distill import cross_entropy_distill
 
 data_transforms = {
             'train': transforms.Compose([
@@ -40,7 +40,10 @@ class_names = image_datasets['train'].classes
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # Defines teacher and student
-teacher = torch.load("models/resnet50_bees.pt", map_location=torch.device('cpu'))
+if device.type == "cuda":
+    torch.load("models/resnet50_bees.pt")
+else:
+    teacher = torch.load("models/resnet50_bees.pt", map_location=torch.device('cpu'))
 student = models.resnet18(pretrained=True)
 
 for param in student.parameters():
@@ -52,13 +55,6 @@ num_ftrs = student.fc.in_features
 student.fc = nn.Linear(num_ftrs, 2)
 student = student.to(device)
 
-# Linear combination in the loss function
-def loss(s_outputs, t_outputs, labels):
-    a = 0.5
-    criterion_mse = torch.nn.MSELoss()
-    criterion_ce = torch.nn.CrossEntropyLoss()
-    return a * criterion_ce(s_outputs, labels) + (1 - a) * criterion_mse(s_outputs, t_outputs)
-
 
 # Observe that all parameters are being optimized
 optimizer_ft = optim.SGD(student.parameters(), lr=0.001, momentum=0.9)
@@ -69,4 +65,5 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=7, gamma=0.1)
 
 if __name__ == "__main__":
 
-    train_model(student, teacher, loss, optimizer_ft, exp_lr_scheduler, device, dataloaders, 6, dataset_sizes)
+    model, results = train_model(student, teacher, cross_entropy_distill, optimizer_ft, exp_lr_scheduler, device, dataloaders, 1, dataset_sizes, alpha=0.5)
+    model, results
