@@ -39,18 +39,14 @@ The results from the experiments can be seen in the table below.
 
 When using alpha equal to 1.0 (just cross entropy) the loss function is more stable than when it is used alpha equal to 0 (just mse). In the last case the process takes approximately 5 epochs to stabilize its values during our experiments. An intermediated value for alpha is to use a value equal to 0.5 which means a weight average of cross entropy and mse. As it can be seen in the illustration the process is equilibrated and allows convergence.
 <br>
-<br>
 
 <img src="img/Screen Shot 2021-08-13 at 3.39.44 PM.png" alt="drawing" width="400"/>
 
 <br>
-<br>
 When using alpha equal to 1.0 (just cross entropy) accuracy values begin increasing from as low as 0.7, eventually it converges to 0.94. This value of alpha has a higher risk of convergence than when using 0.0, 0.5 values. Since it was seen the loss function decreases in a stable manner it is preferred to use alpha equal to 0.5.
- <br>
- <br>
+<br>
 
 <img src="img/Screen Shot 2021-08-13 at 3.40.03 PM.png" alt="drawing" width="400"/>
-<br>
 <br>
 
 The difference between teacher and student logits when using alpha equal to 0.0 and 0.5 evolves in a similar manner, this means the optimization process is behaving as expected. On the contrary, the case happens when alpha equals 1.0. The illustration shows there is no an involuntary process to mimic the teacher logits. Also can be inferred from this the parameter distribution explores other regions bringing different local parameter minima.
