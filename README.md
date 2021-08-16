@@ -4,8 +4,7 @@ This repository is a simple reference, mainly focuses on basic knowledge distill
  
 Distillation is a compression technique in which a compact - smaller model (the student)  is trained to reproduce the behaviour of a cumbersome model (the teacher). This process
 could be achieved by transferring the teacher model´s knowledge to the student by minimizing a loss function composed of two components. The first component has as target the distribution of class probabilities logits predicted by the teacher model, also denominated in the literature as soft labels. The second component has as target the ground truth labels, also known as hard labels.
- 
-$$ L(x; W) = \beta * \Gamma (\sigma (z_s: T=\tau ), \sigma (z_t: T=\tau)) + \alpha * \varphi (y, \sigma (z_s: T=1)) $$
+
 <p class="aligncenter">
    <img src="img/equation1.png" alt="drawing" width="500" />
 </p>
@@ -15,8 +14,6 @@ Where x is the input, W are the student model parameters, y is the ground truth 
  
 The teacher probability distribution in some occasions is sparse, this means the correct class has a very high probability, making it difficult to absorb knowledge from this distribution, and thus it doesn't provide much information beyond the ground truth labels. To overcome this difficulty Hinton et al., 2015 introduced the concept of "softmax temperature".
  
-$$p_i = \frac{exp\frac{z_i}{T}}{\sum_j  exp\frac{z_i}{T}}$$
-
 <p class="aligncenter">
    <img src="img/equation2.png" alt="drawing" width="100"/>
 </p>
