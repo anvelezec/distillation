@@ -15,6 +15,7 @@
 data/*
 d1/*
 results/*
+notebooks/*
 
 # Large data files
 mlruns
