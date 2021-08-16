@@ -27,10 +27,9 @@ The following illustration taken from [Distiller doc](https://intellabs.github.i
 
 ## Experiments
  
-To see how distillation works it was taken a DNN ResNet50 (23'512.130 parameters and 94.4 mb) trained on imageNet and fine tuned on [hymenoptera dataset](https://download.pytorch.org/tutorial/hymenoptera_data.zip) for 25 epochs with batch size 32, lr 0.001, momentum 0.9 and lr_scheduler (step size 7 and gamma 0.1). This model is referenced as the teacher (cumbersome). To distill knowledge from the teacher it was taken a smaller model RestNet18 (11'177.538 parameters and 44.8 mb). This means a reduction approximately of 2x parameters and weight size. It was used mean square error (mse) with the logits distributions from both teacher and student as similarity metric, also for simplicity the hyperparameter beta was set to:
+To see how distillation works it was taken a DNN ResNet50 (23'512.130 parameters and 94.4 mb) trained on imageNet and fine tuned on [hymenoptera dataset](https://download.pytorch.org/tutorial/hymenoptera_data.zip) for 25 epochs with batch size 32, lr 0.001, momentum 0.9 and lr_scheduler (step size 7 and gamma 0.1). This model is referenced as the teacher (cumbersome). To distill knowledge from the teacher it was taken a smaller model RestNet18 (11'177.538 parameters and 44.8 mb). This means a reduction approximately of 2x parameters and weight size. It was used mean square error (mse) with the logits distributions from both teacher and student as similarity metric, also for simplicity the hyperparameter beta was set to beta = 1 - alpha:
  
-$$ \beta = 1 - \alpha $$
- 
+
 The hyperparameter alpha was explored with the values [0.0, 0.5, 1.0]. We ran 4 experiments for each alpha value with the same training configurations used during the teacher's fine tuning. It is recommended to initialize the student model with the parameters from the teacher weights for stability purposes. In our case the student model was previously trained on imageNet, we took those weights as the initial start.
  
 ## Results
