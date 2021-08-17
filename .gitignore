@@ -27,7 +27,7 @@ data/*
 
 # Trained models
 *.pkl
-*.joblib
+
 
 # HTML location reports
 location_reports/
