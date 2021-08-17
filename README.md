@@ -53,3 +53,26 @@ When using alpha equal to 1.0 (just cross entropy) accuracy values begin increas
 The difference between teacher and student logits when using alpha equal to 0.0 and 0.5 evolves in a similar manner, this means the optimization process is behaving as expected. On the contrary, the case happens when alpha equals 1.0. The illustration shows there is no an involuntary process to mimic the teacher logits. Also can be inferred from this the parameter distribution explores other regions bringing different local parameter minima.
  
 <img src="img/Screen Shot 2021-08-13 at 3.40.21 PM.png" alt="drawing" width="400" class="center">
+
+## Conclusions
+When using knowledge distillation is recommended to use a combination of cross entropy loss and similarity metric for the following reasons:
+* Stabilize the loss function optimization process
+* Helps the student preventing divergence
+
+
+
+## Execution
+In order to run distilation process with the experiments configuration run:
+
+````cmd
+python multiple_exp.py --alpha 0.5 \
+                        --n_exp 4 \
+                        --data_dir data/hymenoptera_data \
+                        --teacher_file models/resnet50_bees.pt \
+                        --num_epochs 25 \
+                        --batch_size 32 \
+                        --lr 0.001 \
+                        --momentum 0.9 \
+                        --s_lr_step_size 7 \
+                        --s_rl_gamma 0
+````
