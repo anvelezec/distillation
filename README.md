@@ -9,7 +9,7 @@ could be achieved by transferring the teacher model´s knowledge to the student 
    <img src="img/equation1.png" alt="drawing" width="500" />
 </p>
 
-Where x is the input, W are the student model parameters, y is the ground truth label, σ is the softmax function , and α and β are coefficients. Gamma is the similitud measure between softmaxs functions parameterized by the temperature T, varphi is the cross-entropy loss function, zs and zt are the logits of the student and teacher respectively.
+Where x is the input, W are the student model parameters, y is the ground truth label, σ is the softmax function , and α and β are coefficients. Gamma is the similarity measure between softmaxs functions parameterized by the temperature T, varphi is the cross-entropy loss function, zs and zt are the logits of the student and teacher respectively.
  
  
 The teacher probability distribution in some occasions is sparse, this means the correct class has a very high probability, making it difficult to absorb knowledge from this distribution, and thus it doesn't provide much information beyond the ground truth labels. To overcome this difficulty Hinton et al., 2015 introduced the concept of "softmax temperature".
