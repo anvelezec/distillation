@@ -44,6 +44,22 @@ def multiple_exp(
     s_rl_gamma=0.1,
     **kwards
 ):
+    """
+    Performs multiple trains and validations steps in order to examinate the process variance.
+
+    Args:
+        alpha (int): Coheficient of ponderation similarity and cross entropi coheficients in the loss function
+        n_exp (int): Number experiments to execute
+        data_dir (str): Path with data to use during train and validation step
+        teacher_file (str): Teacher models path
+        num_epochs (int): Number of epoch to run the train step
+        batch_size (int): Batch size to use for each iterateration
+        lr (float, optional): Learing rate. Defaults to 0.001.
+        momentum (float, optional): Momentum. Defaults to 0.9.
+        s_lr_step_size (int, optional): Learning rate scheduler step size. Defaults to 7.
+        s_rl_gamma (float, optional): Learning rate scheduler gamma. Defaults to 0.1.
+    """
+    
     image_datasets = {
         x: datasets.ImageFolder(os.path.join(data_dir, x), data_transforms[x])
         for x in ["train", "val"]

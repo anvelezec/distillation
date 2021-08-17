@@ -1,4 +1,5 @@
 import os
+from typing import Tuple
 import torch
 from torch.nn.modules import module
 from torch.optim import optimizer
@@ -16,12 +17,27 @@ def trainer_wrapper(
     teacher_file: str,
     num_epochs: int,
     dataloaders: dict,
-    dataset_sizes,
+    dataset_sizes: dict,
     lr: float,
     momentum: float,
     s_lr_step_size: int,
     s_rl_gamma: float,
-):
+) -> Tuple[dict, dict]:
+    """
+    Wrapper to distill a model
+    Args:
+        teacher_file (str): Teacher models path
+        num_epochs (int): Number of epoch to run the train step
+        dataloaders (dict): Train and val data loaders
+        dataset_sizes (dict): Number elements in train and val folders
+        lr (float): Learing rate. Defaults to 0.001.
+        momentum (float): Momentum. Defaults to 0.9.
+        s_lr_step_size (int): Learning rate scheduler step size. Defaults to 7.
+        s_rl_gamma (float): Learning rate scheduler gamma. Defaults to 0.1.
+
+    Returns:
+        Tuple[, dict]: [description]
+    """
 
     # Set up device
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
