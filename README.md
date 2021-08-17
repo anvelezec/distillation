@@ -34,7 +34,7 @@ The hyperparameter alpha was explored with the values [0.0, 0.5, 1.0]. We ran 4 
  
 ## Results
  
-The results from the experiments can be seen in the table below.
+The EDA from the experiments were constructed using this [colab notebook](https://colab.research.google.com/drive/1WiMfSUKmDWjUHztqiKEoYMtnAekxJb4U#scrollTo=PDsURUy4K1tW). The table below summarizes the experiments results.
  
 |   alpha   | epoch_loss_l             | epoch_acc_l            | epoch_acc_teacher_l  | diff_t_s              |
 |:---------:|:------------------------:|:----------------------:|:--------------------:|:---------------------:|
@@ -77,4 +77,4 @@ python multiple_exp.py --alpha 0.5 \
                         --s_rl_gamma 0
 ````
 
-Also this [colab notebook](https://colab.research.google.com/drive/1pSplcCP4bUnW9lvT9gQO5SJXgOM3hdTn#scrollTo=jHuTYXoRCSeG) helps you to get started 
+Also this [colab notebook](https://colab.research.google.com/drive/1pSplcCP4bUnW9lvT9gQO5SJXgOM3hdTn#scrollTo=jHuTYXoRCSeG) helps you reproduce the experiments
