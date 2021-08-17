@@ -62,7 +62,7 @@ When using knowledge distillation is recommended to use a combination of cross e
 
 
 ## Execution
-In order to run distilation process with the experiments configuration run:
+In order to run distillation process with the experiments configuration run:
 
 ````cmd
 python multiple_exp.py --alpha 0.5 \
@@ -76,3 +76,5 @@ python multiple_exp.py --alpha 0.5 \
                         --s_lr_step_size 7 \
                         --s_rl_gamma 0
 ````
+
+Also this [colab notebook](https://colab.research.google.com/drive/1pSplcCP4bUnW9lvT9gQO5SJXgOM3hdTn#scrollTo=jHuTYXoRCSeG) helps you to get started 
