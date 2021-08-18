@@ -1,23 +1,13 @@
 # Distillation
 Pytorch implementation of basic Knowledge Distillation (KD) method.
-This repository is a simple reference, mainly focuses on basic knowledge distillation/transfer method. I Hope it is useful for your basic understanding / project or research.
+This repository mainly focuses on basic knowledge distillation/transfer method. I Hope it is useful for your basic understanding / project or research.
  
-Distillation is a compression technique in which a compact - smaller model (the student)  is trained to reproduce the behaviour of a cumbersome model (the teacher). This process
-could be achieved by transferring the teacher model´s knowledge to the student by minimizing a loss function composed of two components. The first component has as target the distribution of class probabilities logits predicted by the teacher model, also denominated in the literature as soft labels. The second component has as target the ground truth labels, also known as hard labels.
+Distillation is a compression technique in which a compact - smaller model (the student) is trained to reproduce the behaviour of a cumbersome model (the teacher). This is achieved by transferring the teacher model´s dark knowledge to the student by minimizing a loss function composed of [two components](https://intellabs.github.io/distiller/knowledge_distillation.html). The first component has as target the distribution of class probabilities logits predicted by the teacher model, also denominated in the literature as soft labels. The second component has as target the ground truth labels, also known as hard labels.
 
-<p class="aligncenter">
-   <img src="img/equation1.png" alt="drawing" width="500" />
-</p>
+ 
+The teacher probability distribution in some occasions is sparse, this means the correct class has a very high probability, making it difficult to absorb knowledge from this distribution, and thus it doesn't provide much information beyond the ground truth labels. To overcome this difficulty [Hinton et al., 2015](https://arxiv.org/abs/1503.02531) introduced the concept of "softmax temperature".
+ 
 
-Where x is the input, W are the student model parameters, y is the ground truth label, σ is the softmax function , and α and β are coefficients. Gamma is the similarity measure between softmaxs functions parameterized by the temperature T, varphi is the cross-entropy loss function, zs and zt are the logits of the student and teacher respectively.
- 
- 
-The teacher probability distribution in some occasions is sparse, this means the correct class has a very high probability, making it difficult to absorb knowledge from this distribution, and thus it doesn't provide much information beyond the ground truth labels. To overcome this difficulty Hinton et al., 2015 introduced the concept of "softmax temperature".
- 
-<p class="aligncenter">
-   <img src="img/equation2.png" alt="drawing" width="100"/>
-</p>
- 
 The following illustration taken from [Distiller doc](https://intellabs.github.io/distiller/knowledge_distillation.html) helps to understand in a better way the multiple loss function components.
  
 <p class="aligncenter">
