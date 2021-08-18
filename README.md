@@ -5,7 +5,7 @@ This repository mainly focuses on basic knowledge distillation/transfer method. 
 Distillation is a compression technique in which a compact - smaller model (the student) is trained to reproduce the behaviour of a cumbersome model (the teacher). This is achieved by transferring the teacher model´s dark knowledge to the student by minimizing a loss function composed of [two components](https://intellabs.github.io/distiller/knowledge_distillation.html). The first component has as target the distribution of class probabilities logits predicted by the teacher model, also denominated in the literature as soft labels. The second component has as target the ground truth labels, also known as hard labels.
 
  
-The teacher probability distribution in some occasions is sparse, this means the correct class has a very high probability, making it difficult to absorb knowledge from this distribution, and thus it doesn't provide much information beyond the ground truth labels. To overcome this difficulty [Hinton et al., 2015](https://arxiv.org/abs/1503.02531) introduced the concept of "softmax temperature".
+The teacher probability distribution in some occasions is sparse, this means the correct class has a very high probability, making it difficult to absorb knowledge from this distribution, and thus it does not provide much information beyond the ground truth labels. To overcome this difficulty [Hinton et al., 2015](https://arxiv.org/abs/1503.02531) introduced the concept of "softmax temperature".
  
 
 The following illustration taken from [Distiller doc](https://intellabs.github.io/distiller/knowledge_distillation.html) helps to understand in a better way the multiple loss function components.
@@ -17,10 +17,11 @@ The following illustration taken from [Distiller doc](https://intellabs.github.i
 
 ## Experiments
  
-To see how distillation works it was taken a DNN ResNet50 (23'512.130 parameters and 94.4 mb) trained on imageNet and fine tuned on [hymenoptera dataset](https://download.pytorch.org/tutorial/hymenoptera_data.zip) for 25 epochs with batch size 32, lr 0.001, momentum 0.9 and lr_scheduler (step size 7 and gamma 0.1). This model is referenced as the teacher (cumbersome). To distill knowledge from the teacher it was taken a smaller model RestNet18 (11'177.538 parameters and 44.8 mb). This means a reduction approximately of 2x parameters and weight size. It was used mean square error (mse) with the logits distributions from both teacher and student as similarity metric, also for simplicity the hyperparameter beta was set to beta = 1 - alpha:
- 
+To asses distillation understanding, it was taken a DNN ResNet50 (23'512.130 parameters and 94.4 mb) trained on imageNet. This model is referenced as the teacher (cumbersome) and was fine tuned on [hymenoptera dataset](https://download.pytorch.org/tutorial/hymenoptera_data.zip) for 25 epochs with batch size 32, lr 0.001, momentum 0.9 and lr_scheduler (step size 7 and gamma 0.1).
 
-The hyperparameter alpha was explored with the values [0.0, 0.5, 1.0]. We ran 4 experiments for each alpha value with the same training configurations used during the teacher's fine tuning. It is recommended to initialize the student model with the parameters from the teacher weights for stability purposes. In our case the student model was previously trained on imageNet, we took those weights as the initial start.
+An important element during distillation procedure is to adecuate the right initialization for the student´s model in order to converge. [Sanh et al., 2020](https://arxiv.org/abs/1910.01108) recommends to do this procedure by taking as base the teacher weights and remove layers off. In our case the student model was RestNet18 (11'177.538 parameters and 44.8 mb) previously trained on imageNet, we took those weights as the initial start. Comparing the teacher and student models we have a reduction approximately of 2x parameters and weight size.
+
+The hyperparameter alpha was explored with the values [0.0, 0.5, 1.0]. We ran 4 experiments for each alpha value with the same training configurations used during the teacher's fine tuning.
  
 ## Results
  
