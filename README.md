@@ -35,11 +35,6 @@ The EDA from the experiments were constructed using this [colab notebook](https:
 
 When using alpha equal to 1.0 (just cross entropy) the loss function is more stable than when it is used alpha equal to 0 (just mse). In the last case the process takes approximately 5 epochs to stabilize its values during our experiments. An intermediated value for alpha is to use a value equal to 0.5 which means a weight average of cross entropy and mse. As it can be seen in the illustration the process is equilibrated and allows convergence.
 
-<style>
-td, th {
-   border: none!important;
-}
-</style>
 
 
 Loss             |  Loss last 15 epochs
