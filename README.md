@@ -80,5 +80,5 @@ When using knowledge distillation it is recommended to use a combination of cros
 * Stabilize the loss function optimization process
 * Helps the student preventing divergence
 
-**Note**: For this experiment there is not a clear difference in the accuracy metric when using distillation vs not using it, this could happen since the general classification problem is basic. In addition no cross validation using the validation dataset was done. Hinton et al., 2015 mentions that by using distillation the smaller models learn to generalize as well as the bigger model aspect that can be lost if it is just used the smaller model and trained alone without dark knowledge injection.
+**Note**: For this experiment there is not a clear difference in the accuracy metric when using distillation vs not using it, this could happen since the general classification problem is basic. In addition, cross-validation was not used with validation dataset, thus limiting models generalization capacity evaluation. Hinton et al., 2015 mentions that by using distillation the smaller models learn to generalize as well as the bigger model, this desired characteristic can be lost if it is just used the smaller model and trained alone without dark knowledge injection.
 
