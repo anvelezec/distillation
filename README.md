@@ -22,7 +22,26 @@ To access distillation understanding, it was taken a DNN ResNet50 (23'512.130 pa
 An important element during distillation procedure is to adecuate the right initialization for the student´s model in order to converge. [Sanh et al., 2020](https://arxiv.org/abs/1910.01108) recommends to do this procedure by taking as base the teacher weights and remove layers off. In our case the student model was RestNet18 (11'177.538 parameters and 44.8 mb) previously trained on imageNet, we took those weights as the initial start. Comparing the teacher and student models we have a reduction approximately of 2x parameters and weight size.
 
 The hyperparameter alpha was explored with the values [0.0, 0.5, 1.0]. We ran 4 experiments for each alpha value with the same training configurations used during the teacher's fine tuning.
- 
+
+## Execution
+In order to run distillation process with the experiments configuration run:
+
+````cmd
+python multiple_exp.py --alpha 0.5 \
+                        --n_exp 4 \
+                        --data_dir data/hymenoptera_data \
+                        --teacher_file models/resnet50_bees.pt \
+                        --num_epochs 25 \
+                        --batch_size 32 \
+                        --lr 0.001 \
+                        --momentum 0.9 \
+                        --s_lr_step_size 7 \
+                        --s_rl_gamma 0
+````
+
+Also this [colab notebook](https://colab.research.google.com/drive/1pSplcCP4bUnW9lvT9gQO5SJXgOM3hdTn#scrollTo=jHuTYXoRCSeG) helps you reproduce the experiments
+
+
 ## Results
  
 The EDA from the experiments were constructed using this [colab notebook](https://colab.research.google.com/drive/1WiMfSUKmDWjUHztqiKEoYMtnAekxJb4U#scrollTo=PDsURUy4K1tW). The table below summarizes the experiments results.
@@ -61,22 +80,5 @@ When using knowledge distillation it is recommended to use a combination of cros
 * Stabilize the loss function optimization process
 * Helps the student preventing divergence
 
-**Note**: For this experiment there is not a clear difference in the accuracy metric when using distillation vs no using it, this could happen since the general classification problem is basic. In addition no cross validation in the validation dataset was done. [Hinton et al., 2015](https://arxiv.org/abs/1503.02531) mentions by using ditillation the smaler models learns to generilize as well as the bigger model aspect that can be lost if it is just used the smaller model and trained alone without dark knowledge injection.
+**Note**: For this experiment there is not a clear difference in the accuracy metric when using distillation vs not using it, this could happen since the general classification problem is basic. In addition no cross validation using the validation dataset was done. Hinton et al., 2015 mentions that by using distillation the smaller models learn to generalize as well as the bigger model aspect that can be lost if it is just used the smaller model and trained alone without dark knowledge injection.
 
-## Execution
-In order to run distillation process with the experiments configuration run:
-
-````cmd
-python multiple_exp.py --alpha 0.5 \
-                        --n_exp 4 \
-                        --data_dir data/hymenoptera_data \
-                        --teacher_file models/resnet50_bees.pt \
-                        --num_epochs 25 \
-                        --batch_size 32 \
-                        --lr 0.001 \
-                        --momentum 0.9 \
-                        --s_lr_step_size 7 \
-                        --s_rl_gamma 0
-````
-
-Also this [colab notebook](https://colab.research.google.com/drive/1pSplcCP4bUnW9lvT9gQO5SJXgOM3hdTn#scrollTo=jHuTYXoRCSeG) helps you reproduce the experiments
