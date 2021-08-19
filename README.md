@@ -35,6 +35,13 @@ The EDA from the experiments were constructed using this [colab notebook](https:
 
 When using alpha equal to 1.0 (just cross entropy) the loss function is more stable than when it is used alpha equal to 0 (just mse). In the last case the process takes approximately 5 epochs to stabilize its values during our experiments. An intermediated value for alpha is to use a value equal to 0.5 which means a weight average of cross entropy and mse. As it can be seen in the illustration the process is equilibrated and allows convergence.
 
+<style>
+td, th {
+   border: none!important;
+}
+</style>
+
+
 Loss             |  Loss last 15 epochs
 :-------------------------:|:-------------------------:
 ![](img/losses.png)  |  ![](img/losses_zoomin.png)
@@ -48,10 +55,11 @@ Accuracy             |  Accuracy last 15 epochs
 
 
 The difference between teacher and student logits when using alpha equal to 0.0 and 0.5 evolves in a similar manner, this means the optimization process is behaving as expected. On the contrary, the case happens when alpha equals 1.0. The illustration shows there is no an involuntary process to mimic the teacher logits. Also can be inferred from this the parameter distribution explores other regions bringing different local parameter minima.
- 
+
+
 Teacher-Student logits             |  Teacher-Student logits  last 15 epochs
 :-------------------------:|:-------------------------:
-![](img/t-s_loggits.png)  |  ![](img/t-s_loggits_zoomin.png)
+![](img/t-s_logits.png)  |  ![](img/t-s_logits_zoomin.png)
 
 ## Conclusions
 When using knowledge distillation it is recommended to use a combination of cross entropy loss and similarity metric for the following reasons:
